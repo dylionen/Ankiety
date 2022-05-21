@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nowa ankieta</title>
+</head>
+<body>
+<form action="aaa" method="post" th:action="@{/new/add}">
+    <input type="text"  th:field="${header.title}">
+    <button type="submit">Wyślij</button>
+
+
+</form>
+
+</body>
+</html>

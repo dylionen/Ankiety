@@ -3,10 +3,7 @@ package ankiety.modules.ankieta.header;
 import ankiety.modules.ankieta.answer.Question;
 import ankiety.modules.ankieta.answer.SingleAnswer;
 import ankiety.modules.users.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -17,6 +14,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Header {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,11 +37,4 @@ public class Header {
     private Set<Question> questions;
 
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
