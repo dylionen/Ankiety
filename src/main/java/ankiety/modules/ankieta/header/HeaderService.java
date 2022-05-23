@@ -1,12 +1,15 @@
 package ankiety.modules.ankieta.header;
 
+import ankiety.modules.ankieta.answer.Question;
 import ankiety.modules.users.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class HeaderService {
@@ -35,6 +38,21 @@ public class HeaderService {
 
     public List<Header> getAllUserHeaders(Principal principal) {
         return headerRepository.getHeadersByUser(userService.getUserByUserName(principal.getName()));
+    }
+
+    public Header getHeaderById(Long id) {
+        return headerRepository.getById(id);
+    }
+
+    @Transactional
+    public Header newQuestion(Long id) {
+        Header header = headerRepository.getById(id);
+        Question question = new Question();
+        Set<Question> questions = header.getQuestions() == null ? new HashSet<>() : header.getQuestions();
+        questions.add(question);
+        headerRepository.save(header);
+        return header;
+
     }
 
 }

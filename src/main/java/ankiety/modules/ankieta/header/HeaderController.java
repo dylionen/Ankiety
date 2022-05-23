@@ -32,14 +32,27 @@ public class HeaderController {
 
     @GetMapping("/list")
     public String myFormsList(Model model, Principal principal) {
-        model.addAttribute("headers",headerService.getAllUserHeaders(principal));
+        model.addAttribute("headers", headerService.getAllUserHeaders(principal));
         return "form-list";
     }
 
     @GetMapping("/list/{id}")
     public String myForm(@PathVariable Long id, Model model, Principal principal) {
         System.out.println(id);
-        //model.addAttribute("headers",headerService.getAllUserHeaders(principal));
+        Header header = headerService.getHeaderById(id);
+        model.addAttribute("header", header);
         return "single-form";
     }
+
+    @GetMapping("/list/{id}/question")
+    public String myFormNewQuestion(@PathVariable Long id, Model model, Principal principal) {
+        System.out.println(id);
+
+        Header header = headerService.newQuestion(id);
+
+        model.addAttribute("header", header);
+        return "redirect:/new/list/{id}";
+    }
+
+
 }
