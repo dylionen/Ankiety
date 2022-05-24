@@ -13,4 +13,8 @@ public class QuestionService {
     public Question getQuestionById(Long id) {
         return questionRepository.getById(id);
     }
+
+    public void saveQuestion(Question question){
+        questionRepository.save(question);
+    }
 }

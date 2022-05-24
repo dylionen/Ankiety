@@ -1,9 +1,6 @@
 package ankiety.modules.ankieta.answer;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -13,19 +10,20 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String question;
+    private String query;
 
     // pytania mogą być otwarte, zamknięte wielokrotnego wyboru bądą jednokrotnego
     private Boolean openQuestion;
 
     private Boolean multipleChoice;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
     @JoinColumn(name = "question_id")
     private Set<SingleAnswer> answers;
 
