@@ -26,5 +26,4 @@ public class Question {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
     @JoinColumn(name = "question_id")
     private Set<SingleAnswer> answers;
-
 }

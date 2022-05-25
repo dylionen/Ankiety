@@ -5,10 +5,8 @@
     <meta charset="UTF-8">
     <title>Question</title>
 </head>
-<body th:object="${question}">
+<body th:object="${questionDTO}">
 <form th:action="@{/question/edit/} +  *{id} "  method="post" >
-    ID:
-    <input type="text" th:field="*{id}" th:value="*{id}"><br>
     Pytanie:
     <input type="text" th:field="*{query}"><br>
     Pytanie otwarte?
@@ -17,14 +15,16 @@
     <input type="checkbox" th:field="*{multipleChoice}"><br>
 
 
-        <ul th:each="single: ${question.answers}">
-            <li th:text="${single.id}"></li>
-</ul>
-
     <button type="submit" name="action" value="new">Dodaj pytanie</button>
     <button type="submit" name="action" value="save">Wyślij</button>
 
 </form>
+
+
+<ul th:each="single: ${answers}">
+    <li ><a th:href="@{/question/edit/single/} +  ${single.id}" >test</a></li>
+</ul>
+
 
 
 </body>
