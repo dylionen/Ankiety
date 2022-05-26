@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments::head">
+    <meta charset="UTF-8">
+    <title>Single Answer</title>
+</head>
+<body th:object="${singleAnswer}">
+
+<section class="answer-edit">
+    <div class="container align-content-center">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-6 mb-5" >
+
+                <form th:action="@{/question/edit/single/} +  *{id} " method="post">
+                    <div class="form-group">
+                        <label for="odpowiedz">Odpowiedź:</label>
+                        <input type="text" class="form-control" id="odpowiedz" placeholder="" th:field="*{value}">
+                    </div>
+                    <button type="submit" class="btn px-4 btn-primary text-white">Wyślij</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>

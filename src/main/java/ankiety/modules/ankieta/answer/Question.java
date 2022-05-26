@@ -1,5 +1,6 @@
 package ankiety.modules.ankieta.answer;
 
+import ankiety.modules.ankieta.header.Header;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,4 +27,8 @@ public class Question {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
     @JoinColumn(name = "question_id")
     private Set<SingleAnswer> answers;
+
+    @ManyToOne
+    @JoinColumn(name = "header_id")
+    private Header header;
 }

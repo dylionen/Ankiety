@@ -29,12 +29,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeHttpRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .antMatchers("/new/**").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/bootstrap**").permitAll()
               /*  .antMatchers("/user/**").hasAnyAuthority("ADMIN", "EMPLOYEE", "EMPLOYER")
                 .antMatchers("/company/**").hasAnyAuthority("ADMIN", "EMPLOYER")
                 .antMatchers("/job/**").permitAll()
 
                 .antMatchers("/register").permitAll()
-                .antMatchers("/js**").permitAll()
+
                 .antMatchers("/bs4**").permitAll()
                 .antMatchers("/fonts**").permitAll()
                 .antMatchers("/images**").permitAll()

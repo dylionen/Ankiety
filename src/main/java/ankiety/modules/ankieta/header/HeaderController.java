@@ -26,7 +26,6 @@ public class HeaderController {
     @PostMapping("/add")
     public String saveForm(@ModelAttribute Header header, Model model, Principal principal) {
         headerService.createNewHeader(header, principal);
-        System.out.println(header);
         return "index";
     }
 
@@ -38,7 +37,6 @@ public class HeaderController {
 
     @GetMapping("/list/{id}")
     public String myForm(@PathVariable Long id, Model model, Principal principal) {
-        System.out.println(id);
         Header header = headerService.getHeaderById(id);
         model.addAttribute("header", header);
         return "single-form";
@@ -46,10 +44,7 @@ public class HeaderController {
 
     @GetMapping("/list/{id}/question")
     public String myFormNewQuestion(@PathVariable Long id, Model model, Principal principal) {
-        System.out.println(id);
-
         Header header = headerService.newQuestion(id);
-
         model.addAttribute("header", header);
         return "redirect:/new/list/{id}";
     }

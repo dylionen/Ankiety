@@ -1,31 +1,68 @@
-<!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments::head">
     <meta charset="UTF-8">
     <title>Question</title>
 </head>
+
 <body th:object="${questionDTO}">
-<form th:action="@{/question/edit/} +  *{id} "  method="post" >
-    Pytanie:
-    <input type="text" th:field="*{query}"><br>
-    Pytanie otwarte?
-    <input type="checkbox" th:field="*{openQuestion}"><br>
-    Wielokrotny wybór
-    <input type="checkbox" th:field="*{multipleChoice}"><br>
+
+<section class="question-edit">
+    <div class="container align-content-center">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-12 mb-12">
+
+                <form th:action="@{/question/edit/} +  *{id} " method="post">
+
+                    <div class="form-group">
+                        <label for="pytanie">Pytanie:</label>
+                        <input type="text" class="form-control" id="pytanie" placeholder="" th:field="*{query}">
+                    </div>
 
 
-    <button type="submit" name="action" value="new">Dodaj pytanie</button>
-    <button type="submit" name="action" value="save">Wyślij</button>
-
-</form>
-
-
-<ul th:each="single: ${answers}">
-    <li ><a th:href="@{/question/edit/single/} +  ${single.id}" >test</a></li>
-</ul>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="openQuestion"
+                               th:field="*{openQuestion}">
+                        <label class="form-check-label" for="openQuestion">
+                            Pytanie otwarte?
+                        </label>
+                    </div>
 
 
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="multipleChoice"
+                               th:field="*{multipleChoice}">
+                        <label class="form-check-label" for="multipleChoice">
+                            Wielokrotny wybór
+                        </label>
+                    </div>
+
+                    <button type="submit" name="action" value="new" class="btn px-4 btn-primary text-dark">Dodaj
+                        pytanie
+                    </button>
+                    <button type="submit" name="action" value="save" class="btn px-4 btn-primary text-white">Zapisz
+                    </button>
+
+                </form>
+            </div>
+            <div class="col-lg-12 mb-12">
+                <h4>Warianty odpowiedzi:</h4>
+            </div>
+
+            <div class="col-lg-3 mb-3" th:each="single ,iter: ${answers}"
+                 style="border: 2px solid black; border-radius: 15px;">
+                <a th:href="@{/question/edit/single/} +  ${single.id}"><span th:text="${iter.count}"></span> :[ <span
+                        th:text="${single.value}"></span> ]</a> <a class="float-right"
+                    th:href="@{/question/edit/single/} +  ${single.id} + @{/delete}"><button class="ui-icon-bullet">X</button></a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script src="/bootstrap/js/bootstrap.bundle.js"></script>
+
+<script src="/bootstrap/js/bootstrap.js"></script>
 
 </body>
 </html>
