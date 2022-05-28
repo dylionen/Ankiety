@@ -1,23 +1,54 @@
-<!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments::head">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
 </head>
 <body>
+<section th:insert="fragments::nav"></section>
+<div class="container align-content-center">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12 mb-12">
 
-<h1 th:text="${header.title}"></h1>
+            <h1 th:text="${header.title}"></h1>
 
-<div>
-    <a href="newquestion" th:href="@{/new/list/{id}/question(id=${header.id})}">New question</a>
 
+            <div th:if="${header.createMode}">
+                <div>
+                    <a href="newquestion" th:href="@{/new/list/{id}/question(id=${header.id})}">
+                        <button type="submit" class="btn px-4 btn-primary text-dark">Nowe pytanie</button>
+                    </a>
+                    <a href="close" th:href="@{/new/list/{id}(id=${header.id},setClosed=true)}">
+                        <button type="submit" class="btn px-4 btn-primary text-white float-right">Zamknij ankietę
+                        </button>
+                    </a>
+
+
+                </div>
+                <ul th:each="question: ${header.questions}">
+                    <li><a href="question" th:href="@{/question/edit/{id}(id=${question.id})}"><span
+                            th:text="${question.id}"></span></a></li>
+
+                </ul>
+            </div>
+
+            <div th:if="!${header.createMode}">
+                <h2>Ankieta jest zamknięta</h2>
+                <a href="close" th:href="@{/new/list/{id}(id=${header.id},newLink=true)}">
+                    <button type="submit" class="btn px-4 btn-primary text-dark ">Wygeneruj link</button>
+                </a>
+
+                <div class="row form-group">
+                    <div class="col-md-12 mb-12 mb-md-12 col-12" th:each="link: ${header.links}">
+                        <input type="text" th:value="${link.key}" readonly>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 </div>
-<ul th:each="question: ${header.questions}">
-    <li><a href="question" th:href="@{/question/edit/{id}(id=${question.id})}"><span
-            th:text="${question.id}"></span></a></li>
-
-</ul>
 
 
 </body>

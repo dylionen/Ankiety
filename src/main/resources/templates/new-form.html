@@ -1,16 +1,26 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:insert="fragments::head">
     <meta charset="UTF-8">
-    <title>Nowa ankieta</title>
+    <title>Login</title>
 </head>
 <body>
-<form action="aaa" method="post" th:action="@{/new/add}">
-    <input type="text"  th:field="${header.title}">
-    <button type="submit">Wyślij</button>
+<section th:insert="fragments::nav"></section>
+<section class="question-edit">
+    <div class="container align-content-center">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-12 mb-12">
+                <form action="aaa" method="post" th:action="@{/new/add}">
 
-
-</form>
-
+                    <div class="form-group">
+                        <label for="nazwa">Nazwa pytania:</label>
+                        <input type="text" class="form-control" id="nazwa" placeholder="" th:field="${header.title}">
+                    </div>
+                    <button type="submit" class="btn px-4 btn-primary text-white">Wyślij</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 </body>
 </html>

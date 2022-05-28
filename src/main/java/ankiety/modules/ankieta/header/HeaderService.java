@@ -1,6 +1,7 @@
 package ankiety.modules.ankieta.header;
 
 import ankiety.modules.ankieta.answer.Question;
+import ankiety.modules.ankieta.link.Link;
 import ankiety.modules.users.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +54,22 @@ public class HeaderService {
         headerRepository.save(header);
         return header;
 
+    }
+
+    @Transactional
+    public void closeHeader(Long id) {
+        Header header = headerRepository.getById(id);
+        header.setCreateMode(false);
+        headerRepository.save(header);
+    }
+
+    @Transactional
+    public void newLink(Long id) {
+        Header header = headerRepository.getById(id);
+        Link link = new Link();
+        Set<Link> links = header.getLinks() == null ? new HashSet<>() : header.getLinks();
+        links.add(link);
+        headerRepository.save(header);
     }
 
 }

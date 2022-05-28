@@ -8,4 +8,5 @@ import java.util.List;
 public interface HeaderRepository extends JpaRepository<Header, Long> {
 
     public List<Header> getHeadersByUser(User user);
+
 }

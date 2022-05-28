@@ -2,9 +2,10 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments::head">
     <meta charset="UTF-8">
-    <title>Question</title>
+    <title>Login</title>
 </head>
-
+<body>
+<section th:insert="fragments::nav"></section>
 <body th:object="${questionDTO}">
 
 <section class="question-edit">
@@ -38,7 +39,7 @@
                     </div>
 
                     <button type="submit" name="action" value="new" class="btn px-4 btn-primary text-dark">Dodaj
-                        pytanie
+                        wariant odpowiedzi
                     </button>
                     <button type="submit" name="action" value="save" class="btn px-4 btn-primary text-white">Zapisz
                     </button>

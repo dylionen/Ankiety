@@ -1,17 +1,23 @@
-<!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments::head">
     <meta charset="UTF-8">
-    <title>Lista ankiet</title>
+    <title>Login</title>
 </head>
 <body>
+<section th:insert="fragments::nav"></section>
+<div class="container align-content-center">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-12 mb-12">
+            <div th:each="header: ${headers}">
+                <ul>
+                    <li><a th:href="@{/new/list/{id}(id=${header.id})}"> <span th:text="${header.title}"></span></a>
+                    </li>
+                </ul>
 
-<div th:each="header: ${headers}">
-    <ul>
-        <li><a th:href="@{/new/list/{id}(id=${header.id})}"> <span th:text="${header.title}"></span></a></li>
-    </ul>
-
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

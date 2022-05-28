@@ -2,6 +2,7 @@ package ankiety.modules.ankieta.header;
 
 import ankiety.modules.ankieta.answer.Question;
 import ankiety.modules.ankieta.answer.SingleAnswer;
+import ankiety.modules.ankieta.link.Link;
 import ankiety.modules.users.User;
 import lombok.*;
 
@@ -34,7 +35,13 @@ public class Header {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "header_id")
+    @OrderBy("id ASC")
     private Set<Question> questions;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "header_id")
+    @OrderBy("id ASC")
+    private Set<Link> links;
 
 
 }

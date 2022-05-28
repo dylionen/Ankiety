@@ -2,11 +2,13 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments::head">
     <meta charset="UTF-8">
-    <title>Single Answer</title>
+    <title>Login</title>
 </head>
-<body th:object="${singleAnswer}">
+<body>
+<section th:insert="fragments::nav"></section>
 
-<section class="answer-edit">
+
+<section class="answer-edit" th:object="${singleAnswer}">
     <div class="container align-content-center">
         <div class="row justify-content-md-center">
             <div class="col-lg-6 mb-5" >
