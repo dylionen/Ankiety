@@ -39,8 +39,8 @@
                 </a>
 
                 <div class="row form-group">
-                    <div class="col-md-12 mb-12 mb-md-12 col-12" th:each="link: ${header.links}">
-                        <input type="text" th:value="${link.key}" readonly>
+                    <div class="col-lg-12 mb-12" th:each="link: ${header.links}">
+                        <input type="text" class="form-control" th:value="${link.key}" readonly>
                     </div>
                 </div>
 

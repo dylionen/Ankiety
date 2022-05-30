@@ -26,7 +26,11 @@ public class Link {
     private Header header;
 
     public Link() {
-        this.key = new BCryptPasswordEncoder().encode(new Date().toString()).replace("$2a$10$","");
+        this.key = new BCryptPasswordEncoder().encode(new Date().toString())
+                .replace("$2a$10$","")
+                .replace(".","")
+                .replace(",","")
+                .replace("/","");
     }
 
 }

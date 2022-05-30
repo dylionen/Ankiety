@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments::head">
+    <meta charset="UTF-8">
+    <title>Ankieta</title>
+</head>
+<body>
+<section th:insert="fragments::nav"></section>
+
+<section th:object="${header}">
+    <form action="ankieta" th:action="@{/ankieta/} +  ${key}  +@{/send} " method="post">
+        <h1 th:text="*{title}"></h1>
+        <div th:each="question,questioncounter : *{questions}">
+            <h2 th:text="${questioncounter.count} +  ': '  +  ${question.query}"></h2>
+            <div th:if="${question.openQuestion}">
+                <input type="text" th:attr="name = 'question[' + ${questioncounter.count} + ']'" required>
+            </div>
+
+            <div th:unless="${question.openQuestion}" th:each="answer,answercounter : ${question.answers}">
+                <div th:if="${question.multipleChoice}">
+                    <il>
+                        <li><input type="checkbox"
+                                   th:attr="name = 'question[' + ${questioncounter.count} + ']['+ ${answercounter.count}+']'" th:value="${answer.value}">
+                            <span th:text="${answer.value}"></span></li>
+                    </il>
+                </div>
+                <div th:unless="${question.multipleChoice}">
+                    <il>
+                        <li><input type="radio"
+                                   th:attr="name = 'question[' + ${questioncounter.count} + ']'" th:value="${answer.value}">
+                            <span
+                                    th:text="${answer.value}"></span></li>
+                    </il>
+                </div>
+            </div>
+
+
+        </div>
+        <button type="submit">Zatwierdź i prześlij</button>
+    </form>
+</section>
+
+</body>
+</html>
