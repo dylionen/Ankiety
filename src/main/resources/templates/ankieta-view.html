@@ -7,7 +7,7 @@
 <body>
 <section th:insert="fragments::nav"></section>
 
-<section th:object="${header}">
+<section th:if="${link.answer== null}" th:object="${link.header}">
     <form action="ankieta" th:action="@{/ankieta/} +  ${key}  +@{/send} " method="post">
         <h1 th:text="*{title}"></h1>
         <div th:each="question,questioncounter : *{questions}">
@@ -38,6 +38,10 @@
         </div>
         <button type="submit">Zatwierdź i prześlij</button>
     </form>
+</section>
+
+<section th:if="${link.answer!= null}">
+    <h1>Ankieta została wypełniona</h1>
 </section>
 
 </body>

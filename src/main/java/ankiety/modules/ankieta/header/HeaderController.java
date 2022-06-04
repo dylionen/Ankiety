@@ -49,7 +49,9 @@ public class HeaderController {
             headerService.newLink(id);
         }
         Header header = headerService.getHeaderById(id);
+
         model.addAttribute("header", header);
+        model.addAttribute("pageAddress", "http://localhost:8080");
         return "single-form";
     }
 

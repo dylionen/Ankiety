@@ -17,4 +17,8 @@ public class LinkService {
         Optional<Header> headerOptional = Optional.ofNullable(linkRepository.getLinkByKey(key).getHeader());
         return headerOptional;
     }
+
+    public Link getLinkByKey(String key){
+        return linkRepository.getLinkByKey(key);
+    }
 }

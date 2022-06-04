@@ -40,7 +40,9 @@
 
                 <div class="row form-group">
                     <div class="col-lg-12 mb-12" th:each="link: ${header.links}">
-                        <input type="text" class="form-control" th:value="${link.key}" readonly>
+                        <input type="text" class="form-control"
+                               th:style="${link.answer != null ? 'color:red' : 'color:blue'}"
+                               th:value="${pageAddress} +@{/ankieta/} +${link.key}" readonly>
                     </div>
                 </div>
 

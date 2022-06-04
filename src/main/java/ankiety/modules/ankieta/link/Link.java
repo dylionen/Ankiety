@@ -1,6 +1,7 @@
 package ankiety.modules.ankieta.link;
 
 import ankiety.modules.ankieta.header.Header;
+import ankiety.modules.ankieta.userAnswer.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,9 @@ public class Link {
     @ManyToOne
     @JoinColumn(name = "header_id")
     private Header header;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Answer answer;
 
     public Link() {
         this.key = new BCryptPasswordEncoder().encode(new Date().toString())
