@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments::head">
+</head>
+<head>
+    <title>Rejestracja</title>
+</head>
+<body>
+<section th:insert="fragments::nav"></section>
+
+<section class="site-section">
+    <div class="container align-content-center">
+        <div class="row justify-content-md-center">
+            <div class="col-lg-6 mb-5">
+
+                <h2 class="mb-4">Sign Up</h2>
+                <form th:action="@{/process_register}" method="post" class="p-4 border rounded" th:object="${user}">
+
+                    <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger" role="alert">
+                        <ul>
+                            <li th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
+                        </ul>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="login">Login</label>
+                            <input type="text" id="login" th:field="*{userName}" class="form-control"
+                                   th:value="*{userName}" placeholder="Login">
+
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="regPass">Password</label>
+                            <input type="password" id="regPass" th:field="*{password}" th:value="*{password}"
+                                   class="form-control" placeholder="Password">
+
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="retype">Re-Type Password</label>
+                            <input type="password" th:field="*{repeatPassword}" th:value="*{repeatPassword}" id="retype"
+                                   class="form-control" placeholder="Re-type Password">
+
+                        </div>
+                    </div>
+
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="mail">E-mail</label>
+                            <input type="email" th:field="*{mailAddress}" id="mail" th:value="*{mailAddress}"
+                                   class="form-control" placeholder="E-mail">
+                            <p th:errors="${user.mailAddress}">Example error</p>
+
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <input type="submit" value="Sign Up" class="btn px-4 btn-primary text-white">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>

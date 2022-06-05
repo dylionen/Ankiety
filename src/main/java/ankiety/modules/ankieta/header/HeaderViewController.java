@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -21,18 +21,17 @@ import java.util.Set;
 @RequestMapping("/ankieta")
 public class HeaderViewController {
 
-    private final HeaderService headerService;
+
     private final LinkService linkService;
 
-    public HeaderViewController(HeaderService headerService, LinkService linkService) {
-        this.headerService = headerService;
+    public HeaderViewController(LinkService linkService) {
+
         this.linkService = linkService;
     }
 
 
     @GetMapping("/{key}")
-    public String completeTheSurvey(@PathVariable String key, Model model, Principal
-            principal) {
+    public String completeTheSurvey(@PathVariable String key, Model model) {
         Link link = linkService.getLinkByKey(key);
         if (link == null) {
             return "error";
@@ -44,8 +43,7 @@ public class HeaderViewController {
     }
 
     @PostMapping("/{key}/send")
-    public String sendTheSurvey(@PathVariable String key, @RequestParam Map<String, String> headers, Model model, Principal
-            principal) {
+    public String sendTheSurvey(@PathVariable String key, @RequestParam Map<String, String> headers) {
         //   for (String str : headers.keySet()) {
         //      System.out.println(str + " : : : " + headers.get(str));
         //  }
@@ -81,9 +79,9 @@ public class HeaderViewController {
             } else {
                 List<SingleAnswer> answers = questions.get(i).getAnswers().stream().toList();
                 Set<SingleAnswer> correctAnswers = new HashSet<>();
-                for (int j = 0; j < answers.size(); j++) {
-                    if (answers.get(j).getValue().equals(headers.get("question[" + (i + 1) + "]"))) {
-                        correctAnswers.add(answers.get(j));
+                for (SingleAnswer singleAnswer : answers) {
+                    if (singleAnswer.getValue().equals(headers.get("question[" + (i + 1) + "]"))) {
+                        correctAnswers.add(singleAnswer);
                     }
                 }
                 question.setAnswers(correctAnswers);
@@ -93,7 +91,7 @@ public class HeaderViewController {
         answer.setQuestions(singleQuestions);
         link.setAnswer(answer);
         linkService.linkRepository.save(link);
-        return "index";
+        return "redirect:/ankieta/" + key;
     }
 
 }

@@ -21,13 +21,17 @@ public class UserService {
     }
 
     public void createNewUser(User user) {
-        userRepository.save(user);
+        if(!existsByUserName(user.getUserName())) {
+            userRepository.save(user);
+        } else {
+            System.out.println("User: " + user.getUserName() + " exists.");
+        }
     }
 
     @Transactional
     public void createNewUser(UserRegistrationDTO dto) {
         Set<Role> roleSet = new HashSet<>();
-        Optional<Role> role = roleRepository.findByRoleName(dto.getRole());
+        Optional<Role> role = roleRepository.findByRoleName("USER");
         role.ifPresentOrElse(
                 r -> roleSet.add(r),
                 () -> {

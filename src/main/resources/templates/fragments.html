@@ -1,6 +1,5 @@
 <head th:fragment="head" xmlns:th="http://www.thymeleaf.org"
 >
-    <title>Stronka</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content=""/>
@@ -13,7 +12,8 @@
 
 </head>
 
-<section name="nav" th:fragment="nav">
+<section name="nav" th:fragment="nav" xmlns:th="http://www.thymeleaf.org"
+         xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -26,13 +26,20 @@
                     <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/new}">New header</a>
+                    <a class="nav-link" th:href="@{/new}">Nowa ankieta</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/new/list}">Headers</a>
+                    <a class="nav-link" th:href="@{/new/list}">Moje ankiety</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+                <li class="nav-item" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" th:href="@{/register}">Sign up</a>
                 </li>
             </ul>
         </div>

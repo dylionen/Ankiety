@@ -1,11 +1,30 @@
 <!doctype html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments::head">
-    <meta charset="UTF-8">
-    <title>Login</title>
+
+</head>
+<head>
+    <title>Edycja pytania</title>
 </head>
 <body>
 <section th:insert="fragments::nav"></section>
+<script>
+    function disableMultipleChoice() {
+        const openQuestion = document.getElementById("openQuestion");
+        const multipleChoice = document.getElementById("multipleChoice");
+        if (openQuestion.checked) {
+            multipleChoice.disabled = true;
+            multipleChoice.checked = false;
+        } else {
+            multipleChoice.disabled = false;
+        }
+    }
+
+    window.onload = (event) => {
+        disableMultipleChoice();
+    };
+</script>
+
 <body th:object="${questionDTO}">
 
 <section class="question-edit">
@@ -23,7 +42,7 @@
 
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="openQuestion"
-                               th:field="*{openQuestion}">
+                               th:field="*{openQuestion}" onclick="disableMultipleChoice()">
                         <label class="form-check-label" for="openQuestion">
                             Pytanie otwarte?
                         </label>
@@ -54,7 +73,9 @@
                  style="border: 2px solid black; border-radius: 15px;">
                 <a th:href="@{/question/edit/single/} +  ${single.id}"><span th:text="${iter.count}"></span> :[ <span
                         th:text="${single.value}"></span> ]</a> <a class="float-right"
-                    th:href="@{/question/edit/single/} +  ${single.id} + @{/delete}"><button class="ui-icon-bullet">X</button></a>
+                                                                   th:href="@{/question/edit/single/} +  ${single.id} + @{/delete}">
+                <button class="ui-icon-bullet">X</button>
+            </a>
             </div>
 
         </div>
@@ -64,6 +85,21 @@
 <script src="/bootstrap/js/bootstrap.bundle.js"></script>
 
 <script src="/bootstrap/js/bootstrap.js"></script>
+
+<script>
+    function disableMultipleChoice() {
+        const openQuestion = document.getElementById("openQuestion");
+        const multipleChoice = document.getElementById("multipleChoice");
+        if (openQuestion.checked) {
+            multipleChoice.disabled = true;
+            multipleChoice.checked = false;
+        } else {
+            multipleChoice.disabled = false;
+        }
+    }
+
+</script>
+
 
 </body>
 </html>

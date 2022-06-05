@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments::head">
-    <meta charset="UTF-8">
-    <title>Login</title>
+</head>
+<head>
+    <title>Zarządzanie ankietą</title>
 </head>
 <body>
 <section th:insert="fragments::nav"></section>
@@ -25,9 +26,20 @@
 
 
                 </div>
-                <ul th:each="question: ${header.questions}">
-                    <li><a href="question" th:href="@{/question/edit/{id}(id=${question.id})}"><span
-                            th:text="${question.id}"></span></a></li>
+                <ul th:each="question,questionCounter: ${header.questions}">
+                    <li><a href="question" th:href="@{/question/edit/{id}(id=${question.id})}">
+                        <span th:text="${questionCounter.count}"></span> : [
+                        <span th:text="${question.query}"></span> ] { Pytanie:
+                        <span th:unless="${question.openQuestion}">zamknięte ,
+                            <span th:if="${question.multipleChoice}">wielokrotnego wyboru</span>
+                            <span th:unless="${question.multipleChoice}">jednokrotnego wyboru</span>
+                            ( Ilość wariantów:
+                        <span th:text="${question.getAnswers().size()}"></span>
+                        )
+                        </span>
+                        <span th:if="${question.openQuestion}">otwarte</span>
+                        }
+                    </a></li>
 
                 </ul>
             </div>
@@ -35,18 +47,28 @@
             <div th:if="!${header.createMode}">
                 <h2>Ankieta jest zamknięta</h2>
                 <a href="close" th:href="@{/new/list/{id}(id=${header.id},newLink=true)}">
-                    <button type="submit" class="btn px-4 btn-primary text-dark ">Wygeneruj link</button>
+                    <button type="submit" class="btn px-4 btn-primary text-dark">Wygeneruj link</button>
                 </a>
 
-                <div class="row form-group">
-                    <div class="col-lg-12 mb-12" th:each="link: ${header.links}">
+                <div class="row form-group" th:each="link: ${header.links}">
+                    <div class="col-lg-10 mb-10">
                         <input type="text" class="form-control"
                                th:style="${link.answer != null ? 'color:red' : 'color:blue'}"
                                th:value="${pageAddress} +@{/ankieta/} +${link.key}" readonly>
                     </div>
+                    <div class="col-lg-2 mb-2">
+                        <a th:href="@{/new/list/{id}/delete/{key}(id=${header.id},key=${link.key})}">
+                            <button class="btn px-4 btn-primary text-danger">X</button>
+                        </a>
+                    </div>
                 </div>
 
-
+                <div th:if="${questionnairesAreCompleted}" class="text-center">
+                    <h3>Wszystkie ankiety zostały uzupełnione</h3>
+                    <a href="">
+                        <button class="btn px-4 btn-primary text-dark">Sprawdź statystyki</button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

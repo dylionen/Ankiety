@@ -84,11 +84,4 @@ public class UserController {
         }
     }
 
-/*
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/foradmin")
-    @ResponseBody
-    public String someMethod() {
-        return "<h1> Dla admina</h1>";
-    }*/
 }

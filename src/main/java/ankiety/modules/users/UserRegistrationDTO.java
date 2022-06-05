@@ -27,9 +27,6 @@ public class UserRegistrationDTO {
     @Email(message = "Email should be valid")
     private String mailAddress;
 
-    @NotEmpty(message = "Role must not empty")
-    private String role;
-
     @AssertTrue(message = "Password should match")
     public boolean isPasswordsEqual() {
         return password.equals(repeatPassword);

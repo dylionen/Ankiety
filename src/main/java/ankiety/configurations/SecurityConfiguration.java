@@ -58,6 +58,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    public static final int JOBS_PER_PAGE = 7;
-    public static final String UPLOAD_DIR = "C:/Uploads/";
+    public static final String PAGE_URL = "http://localhost:8080";
 }

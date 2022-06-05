@@ -19,6 +19,7 @@ public class AnkietyApplication {
         UserService userService = context.getBean(UserService.class);
         RoleController roleController = context.getBean(RoleController.class);
         roleController.newRole(1L,"ADMIN","Administrator");
+        roleController.newRole(1L,"USER","Użytkownik");
 
 
         Set<Role> roles = new HashSet<>();
