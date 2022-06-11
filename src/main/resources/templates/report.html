@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments::head">
+
+</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Raport</title>
+</head>
+<body>
+<section th:insert="fragments::nav"></section>
+
+<section title="Raport">
+    <h1>Ilośc ankietowanych: <span th:text="${report.respondentNumber}"></span></h1>
+    <div th:each="question : ${report.reportQuestionList}">
+        <div><a th:text="*{question.question.query}"></a>
+
+            <il th:if="${question.openQuestion}" th:each="answer: ${question.counterAnswers}">
+                <li th:text="${answer}"></li>
+            </il>
+            <il th:unless="${question.openQuestion}" th:each="answer: ${question.reportSingleAnswersList}">
+                <li>
+                    [<span th:text="${answer.value}"></span>]
+                    [<span th:text="${answer.amount}"></span>]
+                    [<span th:text="${answer.percentage}"></span>%]
+                </li>
+            </il>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

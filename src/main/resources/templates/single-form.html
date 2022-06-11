@@ -50,6 +50,8 @@
                     <button type="submit" class="btn px-4 btn-primary text-dark">Wygeneruj link</button>
                 </a>
 
+
+
                 <div class="row form-group" th:each="link: ${header.links}">
                     <div class="col-lg-10 mb-10">
                         <input type="text" class="form-control"
@@ -65,8 +67,8 @@
 
                 <div th:if="${questionnairesAreCompleted}" class="text-center">
                     <h3>Wszystkie ankiety zostały uzupełnione</h3>
-                    <a href="">
-                        <button class="btn px-4 btn-primary text-dark">Sprawdź statystyki</button>
+                    <a href="report" th:href="@{/new/list/{id}/report(id=${header.id})}">
+                        <button type="submit" class="btn px-4 btn-primary text-dark">Raport</button>
                     </a>
                 </div>
             </div>

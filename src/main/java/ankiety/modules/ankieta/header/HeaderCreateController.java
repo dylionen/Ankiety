@@ -3,6 +3,7 @@ package ankiety.modules.ankieta.header;
 import ankiety.configurations.SecurityConfiguration;
 import ankiety.modules.ankieta.link.Link;
 import ankiety.modules.ankieta.link.LinkService;
+import ankiety.modules.raport.Report;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -55,9 +56,10 @@ public class HeaderCreateController {
         Boolean questionnairesAreCompleted = false;
         if (!header.getCreateMode()) {
             if (header.getLinks().stream().filter(link -> link.getAnswer() == null).collect(Collectors.toSet()).size() == 0) {
-                questionnairesAreCompleted= true;
+                questionnairesAreCompleted = true;
             }
         }
+
 
         model.addAttribute("questionnairesAreCompleted", questionnairesAreCompleted);
         model.addAttribute("header", header);
@@ -65,8 +67,19 @@ public class HeaderCreateController {
         return "single-form";
     }
 
+    @GetMapping("/list/{id}/report")
+    public String getReport(@PathVariable Long id, Model model, Principal principal) {
+        Header header = headerService.getHeaderById(id);
+        if (!header.getUser().getUserName().equals(principal.getName())) {
+            return "error";
+        }
+        Report report = new Report(header);
+        model.addAttribute("report", report);
+        return "report";
+    }
+
     @GetMapping("/list/{id}/delete/{key}")
-    public String deleteKey(@PathVariable Long id,@PathVariable String key, Principal principal) {
+    public String deleteKey(@PathVariable Long id, @PathVariable String key, Principal principal) {
         Link link = linkService.getLinkByKey(key);
         if (link.getHeader().getUser().getUserName().equals(principal.getName())) {
             linkService.linkRepository.delete(link);

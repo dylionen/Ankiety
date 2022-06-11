@@ -20,18 +20,15 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-    @Column(unique = true)
+    @Column(nullable = false, unique = true)
     private String userName;
     @Column(nullable = false)
     private String password;
     private Boolean active;
-    //private String roles;
-
 
     private String firstName;
     private String lastName;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String mailAddress;
 
 
